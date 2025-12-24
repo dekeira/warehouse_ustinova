@@ -1,0 +1,42 @@
+CREATE DATABASE IF NOT EXISTS warehouse;
+USE warehouse;
+
+CREATE TABLE Stelezhka (
+    Kod_stelezhki INT PRIMARY KEY,
+    nomer INT NOT NULL,
+    kolichestvo_yacheek INT NOT NULL,
+    dopustimaya_massa DECIMAL(10,2) NOT NULL
+);
+
+CREATE TABLE Gruz (
+    Kod_gruza INT PRIMARY KEY,
+    nazvanie VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE Pozitsiya (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    Kod_gruza INT NOT NULL,
+    Kod_stelezhki INT NOT NULL,
+    nomer_yacheiki INT NOT NULL,
+    massa DECIMAL(10,2) NOT NULL,
+    data_ukladki DATE NOT NULL,
+    FOREIGN KEY (Kod_gruza) REFERENCES Gruz(Kod_gruza),
+    FOREIGN KEY (Kod_stelezhki) REFERENCES Stelezhka(Kod_stelezhki)
+);
+
+INSERT INTO Stelezhka VALUES
+(1, 101, 20, 500.00),
+(2, 102, 15, 300.00),
+(3, 103, 25, 400.00);
+
+INSERT INTO Gruz VALUES
+(1, 'Коробки с документами'),
+(2, 'Металлические детали'),
+(3, 'Электроника');
+
+INSERT INTO Pozitsiya VALUES
+(1, 1, 1, 1, 10.50, '2025-12-01'),
+(2, 1, 1, 2, 12.00, '2025-12-02'),
+(3, 2, 2, 1, 25.00, '2025-12-03'),
+(4, 3, 3, 1, 8.75, '2025-12-04'),
+(5, 3, 3, 2, 9.25, '2025-12-05');
